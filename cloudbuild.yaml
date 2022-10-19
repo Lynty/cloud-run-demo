@@ -1,0 +1,13 @@
+steps:
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  dir: 'image-processing'
+  entrypoint: gcloud
+  id: Build image
+  args: ['builds', 'submit', '--tag', 'us-west2-docker.pkg.dev/g-lynnux/demo/adlucent']
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  dir: 'image-processing'
+  entrypoint: gcloud
+  id: Deploy
+  args: ['run', 'deploy', 'adlucent-tutorial', '--image', 'us-west2-docker.pkg.dev/g-lynnux/demo/adlucent', '--set-env-vars=BLURRED_BUCKET_NAME=lynnux-artifacts', '--no-allow-unauthenticated']
+
+# gcloud run deploy adlucent-tutorial --image us-west2-docker.pkg.dev/g-lynnux/demo/adlucent --set-env-vars=BLURRED_BUCKET_NAME=lynnux-artifacts --no-allow-unauthenticated
