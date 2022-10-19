@@ -77,6 +77,7 @@ def __blur_image(current_blob):
         image.resize(*image.size, blur=16, filter="hamming")
         image.save(filename=temp_local_filename)
 
+    print(f"LYNN IS ADDING A FEATURE HERE TO THE SOURCE CODE")
     print(f"Image {file_name} was blurred.")
 
     # Upload result to a second bucket, to avoid re-triggering the function.
