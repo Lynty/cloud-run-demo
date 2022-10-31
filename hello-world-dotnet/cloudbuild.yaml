@@ -25,7 +25,10 @@ steps:
   - |
     set -x && \
     export KUBECONFIG="$(pwd)/gateway-kubeconfig" && \
-    #gcloud container hub memberships get-credentials ld-gcp-gke && \
     gcloud container clusters get-credentials autopilot-cluster-1 --region us-west2 --project g-lynnux && \
-    kubectl --kubeconfig gateway-kubeconfig get nodes # && \
+    kubectl --kubeconfig gateway-kubeconfig get nodes && \
+    kubectl apply -f ./kubernetes
+
+
+    #gcloud container hub memberships get-credentials ld-gcp-gke && \
     #gcloud run deploy hello-cm --cluster ld-gcp-gke --cluster-location us-west1-b --image us-west1-docker.pkg.dev/sada-anthos-lab-01/cloud-run-source-deploy/hello-base:${BUILD_ID} --platform gke

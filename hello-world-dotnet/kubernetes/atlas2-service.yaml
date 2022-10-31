@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cloud.google.com/neg: '{"ingress":true}'
+  creationTimestamp: "2022-10-31T19:54:14Z"
+  labels:
+    app: atlas2
+  name: atlas2
+  namespace: default
+  resourceVersion: "4538584"
+  uid: 8b2ae205-ceb2-456d-9914-9863e828fa29
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 10.99.1.221
+  clusterIPs:
+  - 10.99.1.221
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 32488
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: atlas2
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer: {}
