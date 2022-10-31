@@ -1,9 +1,31 @@
 steps:
-### build and deploy with cloud run ###
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  dir: 'hello-world-dotnet'
-  entrypoint: gcloud
-  id: Deploy
-  args: ['run', 'deploy', 'hello-world-dotnet', '--source', '.', '--region=us-west2', '--no-allow-unauthenticated']
+  #### build and deploy with cloud run ###
+  #- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  #  dir: 'hello-world-dotnet'
+  #  entrypoint: gcloud
+  #  id: Deploy
+  #  args: ['run', 'deploy', 'hello-world-dotnet', '--source', '.', '--region=us-west2', '--no-allow-unauthenticated']
 
 ### build with buildpack and deploy to gke ###
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  dir: 'hello-world-dotnet'
+  id: Build
+  entrypoint: bash
+  args: 
+  - '-c'
+  - |
+    set -x && \
+    gcloud builds submit --pack builder=paketobuildpacks/builder:base,image=us-west2-docker.pkg.dev/g-lynnux/demo/atlas:${SHORT_SHA}
+
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: bash
+  id: Deploy
+  args:
+  - '-c'
+  - |
+    set -x && \
+    export KUBECONFIG="$(pwd)/gateway-kubeconfig" && \
+    #gcloud container hub memberships get-credentials ld-gcp-gke && \
+    gcloud container clusters get-credentials autopilot-cluster-1 --region us-west2 --project g-lynnux && \
+    kubectl --kubeconfig gateway-kubeconfig get nodes # && \
+    #gcloud run deploy hello-cm --cluster ld-gcp-gke --cluster-location us-west1-b --image us-west1-docker.pkg.dev/sada-anthos-lab-01/cloud-run-source-deploy/hello-base:${BUILD_ID} --platform gke
