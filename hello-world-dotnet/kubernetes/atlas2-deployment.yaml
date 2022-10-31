@@ -1,20 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    autopilot.gke.io/resource-adjustment: '{"input":{"containers":[{"name":"atlas"}]},"output":{"containers":[{"limits":{"cpu":"500m","ephemeral-storage":"1Gi","memory":"2Gi"},"requests":{"cpu":"500m","ephemeral-storage":"1Gi","memory":"2Gi"},"name":"atlas"}]},"modified":true}'
-  creationTimestamp: "2022-10-31T19:51:55Z"
-  generation: 1
   labels:
     app: atlas2
   name: atlas2
   namespace: default
-  resourceVersion: "4536887"
-  uid: fd04fa52-9a1b-4fe3-809a-72e79210190b
 spec:
-  progressDeadlineSeconds: 600
   replicas: 1
-  revisionHistoryLimit: 10
   selector:
     matchLabels:
       app: atlas2
@@ -30,7 +22,7 @@ spec:
         app: atlas2
     spec:
       containers:
-      - image: us-west2-docker.pkg.dev/g-lynnux/demo/atlas:3c0e85a
+      - image: us-west2-docker.pkg.dev/g-lynnux/demo/atlas:$IMAGE_TAG
         imagePullPolicy: IfNotPresent
         name: atlas
         ports:
@@ -63,4 +55,3 @@ spec:
         key: kubernetes.io/arch
         operator: Equal
         value: amd64
-status: {}

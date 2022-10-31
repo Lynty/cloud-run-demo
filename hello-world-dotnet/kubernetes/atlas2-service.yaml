@@ -1,15 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    cloud.google.com/neg: '{"ingress":true}'
-  creationTimestamp: "2022-10-31T19:54:14Z"
+  finalizers:
+  - service.kubernetes.io/load-balancer-cleanup
   labels:
     app: atlas2
   name: atlas2
   namespace: default
-  resourceVersion: "4538584"
-  uid: 8b2ae205-ceb2-456d-9914-9863e828fa29
 spec:
   allocateLoadBalancerNodePorts: true
   clusterIP: 10.99.1.221
@@ -29,5 +26,3 @@ spec:
     app: atlas2
   sessionAffinity: None
   type: LoadBalancer
-status:
-  loadBalancer: {}
