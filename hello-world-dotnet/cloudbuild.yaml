@@ -28,7 +28,7 @@ steps:
     export KUBECONFIG="$(pwd)/gateway-kubeconfig" && \
     gcloud container clusters get-credentials autopilot-cluster-1 --region us-west2 --project g-lynnux && \
     kubectl --kubeconfig gateway-kubeconfig get nodes && \
-    sed -i 's/\$IMAGE_TAG/\${SHORT_SHA}/g' kubernetes/atlas2-deployment.yaml && \
+    sed -i 's/\$$IMAGE_TAG/\${SHORT_SHA}/g' kubernetes/atlas2-deployment.yaml && \
     kubectl apply -f kubernetes
 
 
