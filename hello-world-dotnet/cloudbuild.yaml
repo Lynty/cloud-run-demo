@@ -8,8 +8,8 @@ steps:
 
 ### build with buildpack and deploy to gke ###
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  dir: 'hello-world-dotnet'
   id: Build
+  dir: 'hello-world-dotnet'
   entrypoint: bash
   args: 
   - '-c'
@@ -18,8 +18,9 @@ steps:
     gcloud builds submit --pack builder=paketobuildpacks/builder:base,image=us-west2-docker.pkg.dev/g-lynnux/demo/atlas:${SHORT_SHA}
 
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: bash
   id: Deploy
+  entrypoint: bash
+  dir: 'hello-world-dotnet'
   args:
   - '-c'
   - |
@@ -27,7 +28,7 @@ steps:
     export KUBECONFIG="$(pwd)/gateway-kubeconfig" && \
     gcloud container clusters get-credentials autopilot-cluster-1 --region us-west2 --project g-lynnux && \
     kubectl --kubeconfig gateway-kubeconfig get nodes && \
-    kubectl apply -f ./kubernetes
+    kubectl apply -f kubernetes
 
 
     #gcloud container hub memberships get-credentials ld-gcp-gke && \
