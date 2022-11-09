@@ -5,7 +5,7 @@ using namespace std;
      
 int main()
 {
-  cout << "Hello world 0!" << endl;
+  cout << "Hello VIZIO" << endl;
   std::cout << "Press ENTER to continue...";
   std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
   return 0;

@@ -15,7 +15,7 @@ steps:
   entrypoint: gcloud
   args: ['builds', 'submit', '--tag', 'us-west2-docker.pkg.dev/g-lynnux/demo/viz:${SHORT_SHA}']
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  id: Deploy
+  id: Deploy to GKE # or Anthos TV Farm or to storage bucket
   dir: 'hello-world-cpp'
   entrypoint: bash
   args:
@@ -25,5 +25,3 @@ steps:
     export KUBECONFIG="$(pwd)/gateway-kubeconfig" && \
     gcloud container clusters get-credentials autopilot-cluster-1 --region us-west2 --project g-lynnux && \
     kubectl --kubeconfig gateway-kubeconfig create deployment viz --image=us-west2-docker.pkg.dev/g-lynnux/demo/viz:${SHORT_SHA}
-    #sed -i 's/\$$IMAGE_TAG/${SHORT_SHA}/g' kubernetes/atlas2-deployment.yaml && \
-    #kubectl apply -f kubernetes
