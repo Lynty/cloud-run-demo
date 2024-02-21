@@ -1,6 +1,6 @@
 steps:
 - name: 'gcr.io/cloud-builders/gcloud'
   dir: 'hello-world-py'
-  args: ['functions', 'deploy', 'ace-test-py-function', '--source=.', '--trigger-http', '--entry-point=hello_get', '--runtime=python312']
+  args: ['functions', 'deploy', 'ace-test-py-function-${_ENV}', '--source=.', '--trigger-http', '--entry-point=hello_get', '--runtime=python312']
 options:
   logging: CLOUD_LOGGING_ONLY
