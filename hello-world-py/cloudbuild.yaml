@@ -1,3 +1,4 @@
+steps:
 - name: 'gcr.io/cloud-builders/gcloud'
   args: ['functions', 'deploy', 'ace-test-py-function', '--source=.', '--trigger-http', '--runtime=python312']
   options:
